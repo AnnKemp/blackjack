@@ -1,7 +1,5 @@
 <?php
 session_start(); // to reach the session values
-
-// ofwel met GET werken en daar linken van maken en daar op het einde telkens de waarde vanachter meegeven
 ?>
 <!doctype html>
 <html lang="en">
@@ -16,18 +14,23 @@ session_start(); // to reach the session values
 </head>
 <body>
 <div class="container">
-    <h1>Blackjack: play() the game!"</h1>
-<form action="game.php" method="get">
-    <p><?php // if ... echo $_SESSION["player"]// die waarden uit die sessions tonen ?>
+    <h1 class="text-center mb-5 mt-5">Blackjack: play() the game!"</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <H3>Your score is : <?php echo $player->hit()//$_SESSION["player"]// die waarden uit die sessions tonen, dit werkt maar loopt achter ?></H3>
+        </div>
+     <div class="form-group col-md-6">
+<form action="game.php/" method="get">
 
-    </p>
-    <a class="btn btn-success btn-lg" href="?status=START" role="button">START the GAME!</a>
-    <a class="btn btn-info btn-lg" href="?status=HIT" role="button">HIT</a>
-    <a class="btn btn-warning btn-lg" href="?status=STAND" role="button">STAND</a>
-    <a class="btn btn-danger btn-lg" href="?status=SURRENDER" role="button">SURRENDER</a>
-    <input class="btn btn-default btn-lg" type="submit" name="submit" value="Enter play change">
 
-</form>
+    <H4 class="mb-4">Choose between :</H4>
+    <a class="btn btn-danger btn-lg mb-3" href="?status=HIT" role="button">HIT</a><span class="ml-1 align-middle">to lay a card</span><br />
+    <a class="btn btn-warning btn-lg mb-3" href="?status=STAND" role="button">STAND</a><span class="ml-1 align-middle">to end your turn</span><br />
+    <a class="btn btn-info btn-lg mb-5" href="?status=SURRENDER" role="button">SURRENDER</a><span class="ml-1 align-middle">to surrender</span><br />
+
+        </form>
+     </div>
+    </div>
 </div>
 </body>
 </html>
