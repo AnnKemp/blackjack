@@ -18,13 +18,15 @@ session_start(); // to reach the session values
 <div class="container">
     <h1>Blackjack: play() the game!"</h1>
 <form action="game.php" method="get">
-    <p><?php // die waarden uit die sessions tonen ?>
+    <p><?php // if ... echo $_SESSION["player"]// die waarden uit die sessions tonen ?>
 
     </p>
-    <a class="btn btn-primary href="?status=START" role="button">START the GAME!</a>
-    <a class="btn btn-primary href="?status=HIT" role="button">HIT</a>
-    <a class="btn btn-primary href="?status=STAND" role="button">STAND</a>
-    <a class="btn btn-primary href="?status=SURRENDER" role="button">SURRENDER</a>
+    <a class="btn btn-success btn-lg" href="?status=START" role="button">START the GAME!</a>
+    <a class="btn btn-info btn-lg" href="?status=HIT" role="button">HIT</a>
+    <a class="btn btn-warning btn-lg" href="?status=STAND" role="button">STAND</a>
+    <a class="btn btn-danger btn-lg" href="?status=SURRENDER" role="button">SURRENDER</a>
+    <input class="btn btn-default btn-lg" type="submit" name="submit" value="Enter play change">
+
 </form>
 </div>
 </body>
