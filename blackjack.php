@@ -27,29 +27,28 @@ class Blackjack{
         return $this->show;
     }
     function surrender(){
-        return "The house has won!<br />"."<H1>GAME OVER!</H1>";
+        return "The house has won!<br /><H1>GAME OVER!</H1>";
     }
 }
 
-if($_SERVER["REQUEST_METHOD"] == "POST") {}
-    if (!empty($_GET)) {
+if($_SERVER["REQUEST_METHOD"] == "POST") { // en dan moet eigenlijk alles tss die post accolades komen en het form tussen de else }
+    if (!empty($_GET)) { // die get nog verbergen in die post, dan heb ik twee pagina's nodig
         $status = $_GET['status']; // if you click on status the user plays
 
-    $player=new Blackjack();
-    $dealer=new Blackjack();
+        $player = new Blackjack();
+        $dealer = new Blackjack();
 
-    if ($status == "HIT") {
-        $player->hit("You",2,1);
-        echo $player->stand();
+        if ($status == "HIT") {
+            $player->hit("You", 2, 1);
+            echo $player->stand();
+        } elseif ($status == "STAND") { // if you click on stand the house plays
+            $dealer->hit("The house", 15, 1);
+            echo $dealer->stand();
+        } elseif ($status == "SURRENDER") { // if you click on surrender, you,the user, surrender
+            $player->surrender();
+        }
     }
-    elseif ($status == "STAND") { // if you click on stand the house plays
-        $dealer->hit("The house",15,1);
-        echo $dealer->stand();
-    }
-    elseif ($status == "SURRENDER") { // if you click on surrender, you,the user, surrender
-        $player->surrender();
-    }
-}
+// a function to clear all sessions for later when i use two pages
 function allSessionsValueNull(){ // misschien nog typeren en de functie wanneer nodig aanroepen dus
     return $_SESSION["player"] = $_SESSION["house"] =  $_SESSION["playerSurrender"] = 0;
 }
