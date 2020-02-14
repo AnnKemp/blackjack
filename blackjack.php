@@ -9,7 +9,7 @@ class Blackjack{
     public $show="";
 
     // Methods
-    function hit($player,$waarde,$getal){
+    function hit($player, $waarde, $getal){
 
         if($this->score < $waarde) {  // lus van maken met wat in de if is al voorwaarde
             $this->score=$this->score+$getal;
@@ -32,23 +32,23 @@ class Blackjack{
 }
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {}
-if (!empty($_GET)) {
-$status = $_GET['status']; // if you click on status the user plays
+    if (!empty($_GET)) {
+        $status = $_GET['status']; // if you click on status the user plays
 
     $player=new Blackjack();
     $dealer=new Blackjack();
 
-if ($status == "HIT") {
-    $player->hit("You",2,1);
-    echo $player->stand();
-}
-elseif ($status == "STAND") { // if you click on stand the house plays
-    $dealer->hit("The house",15,1);
-    echo $dealer->stand();
-}
-elseif ($status == "SURRENDER") { // if you click on surrender, you,the user, surrender
-    $player->surrender();
-}
+    if ($status == "HIT") {
+        $player->hit("You",2,1);
+        echo $player->stand();
+    }
+    elseif ($status == "STAND") { // if you click on stand the house plays
+        $dealer->hit("The house",15,1);
+        echo $dealer->stand();
+    }
+    elseif ($status == "SURRENDER") { // if you click on surrender, you,the user, surrender
+        $player->surrender();
+    }
 }
 function allSessionsValueNull(){ // misschien nog typeren en de functie wanneer nodig aanroepen dus
     return $_SESSION["player"] = $_SESSION["house"] =  $_SESSION["playerSurrender"] = 0;
@@ -66,7 +66,11 @@ function allSessionsValueNull(){ // misschien nog typeren en de functie wanneer 
     <title>Blackjack game</title>
 </head>
 <body>
-
+<div class="container">
+    <h1 class="text-center mb-5 mt-5">Blackjack: play() the game!"</h1>
+    <div class="row">
+        <div class="col-md-6">
+        </div>
 <div class="form-group col-md-6">
     <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
         <a class="btn btn-danger btn-lg mb-3" href="?status=HIT" role="button">HIT</a><span class="ml-1 align-middle">to lay a card</span><br />
