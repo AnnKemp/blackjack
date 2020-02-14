@@ -28,7 +28,7 @@ session_start(); // to reach the session values
     <a class="btn btn-danger btn-lg mb-3" href="?status=HIT" role="button">HIT</a><span class="ml-1 align-middle">to lay a card</span><br />
     <a class="btn btn-warning btn-lg mb-3" href="?status=STAND" role="button">STAND</a><span class="ml-1 align-middle">to end your turn</span><br />
     <a class="btn btn-info btn-lg mb-3" href="?status=SURRENDER" role="button">SURRENDER</a><span class="ml-1 align-middle">to surrender</span><br />
-    <input type="submit" name="submit" class="btn btn-info btn-lg mb-3 value="CLEAR">
+    <input type="submit" name="submit" class="btn btn-info btn-lg mb-3" value="CLEAR">
         </form>
      </div>
     </div>
