@@ -21,7 +21,6 @@ class Blackjack{
          }else{
              $this->show="<p>".$this->score."</p>";
          }
-
     }
     // get function
     function stand(){
@@ -44,7 +43,6 @@ if ($status == "HIT") {
     echo $player->stand();
 }
 elseif ($status == "STAND") { // if you click on stand the house plays
-    $dealer=new Blackjack();
     $dealer->hit("The house",15,1);
     echo $dealer->stand();
 }
@@ -52,7 +50,6 @@ elseif ($status == "SURRENDER") { // if you click on surrender, you,the user, su
     $player->surrender();
 }
 }
-
 function allSessionsValueNull(){ // misschien nog typeren en de functie wanneer nodig aanroepen dus
     return $_SESSION["player"] = $_SESSION["house"] =  $_SESSION["playerSurrender"] = 0;
 }
@@ -71,7 +68,7 @@ function allSessionsValueNull(){ // misschien nog typeren en de functie wanneer 
 <body>
 
 <div class="form-group col-md-6">
-    <form action="game.php/" method="post">
+    <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
         <a class="btn btn-danger btn-lg mb-3" href="?status=HIT" role="button">HIT</a><span class="ml-1 align-middle">to lay a card</span><br />
         <a class="btn btn-warning btn-lg mb-3" href="?status=STAND" role="button">STAND</a><span class="ml-1 align-middle">to end your turn and let the house play</span><br />
         <a class="btn btn-info btn-lg mb-3" href="?status=SURRENDER" role="button">SURRENDER</a><span class="ml-1 align-middle">to surrender</span><br />
