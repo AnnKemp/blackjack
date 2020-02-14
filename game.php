@@ -24,22 +24,22 @@ class Blackjack{
 
         if($this->score > 21) {  // so is the number is bigger than 21 you lose
             return "You lose! Your score is: " .$this->score;
-           // allSessionsValueNull();//to put the session to zero, have to put a timer on it
+            allSessionsValueNull();//to put the session to zero, does it work ? I don't know how do I check it?
         }
         if((isset($this->houseScore))&&($this->houseScore!=0)){
 
              if(($this->score < 21)&&($this->score > $this->houseScore)){
-                  return "You lose! Your score is: " .$this->score."de huisscore: ".$this->houseScore;
-                 // allSessionsValueNull();//to put the session to zero, have to put a timer on it
+                  return "YOU WIN! Your score is: " .$this->score."de huisscore: ".$this->houseScore;
+                   allSessionsValueNull();//to put the session to zero, does it work ? I don't know how do I check it?
                 }
         // uitzoeken hoe ik die houseScore uit de function stand() krijg
              elseif(($this->score < 21)&&($this->score > $this->houseScore)){  // so is the number is bigger than 21 you lose
                    return "You WIN! :) Your score is: ".$this->score."and the score of the house is: ".$this->houseScore;
-                 // allSessionsValueNull();//to put the session to zero, have to put a timer on it
+                 // allSessionsValueNull();//to put the session to zero, does it work ? I don't know how do I check it?
               }
              elseif($this->score == $this->houseScore){
                 return "The house WINS! :) Your score is: ".$this->score."and the score of the house is: ".$this->houseScore;
-                 // allSessionsValueNull();//to put the session to zero, have to put a timer on it
+                allSessionsValueNull();//to put the session to zero, have to put a timer on it
             }
         }else {
             return "Your score is : " . $this->score . "<br />"; //."de waarde van ".$this->houseScore." is";// of $this->score;
@@ -62,16 +62,11 @@ class Blackjack{
       public function surrender(){
 
           return "The house has won!<br />"."<H1>GAME OVER!</H1>".$this->houseScore;// score dealer // den deze na het eten testen
-          // allSessionsValueNull();//to put the session to zero, have to put a timer on it
+          allSessionsValueNull();//to put the session to zero, does it work ? I don't know how do I check it?
     }
 }
 // making the object
-if(!isset($player)){ // omdat het leek bij het tellen alsof het object elke keer opnieuw werd aangemaakt
-
 $player=new Blackjack();
-
-}
-
 //$dealer=new Blackjack(); // I am not using $dealer at the moment
 
 // hieronder code voorbeeld hoe er normaal gewerkt wordt
