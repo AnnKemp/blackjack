@@ -1,85 +1,117 @@
 <?php
-declare(strict_types=1);
-ini_set('display_errors', "1"); // om foutmeldingen te tonen
-
+//declare(strict_types=1);
+//ini_set('display_errors', "1"); // om foutmeldingen te tonen
 // Set session variables
-//session_start(); we have already a session started
-$_SESSION["player"]=0;
-$_SESSION["house"]=0;
+session_start();
 
 //initializing vars
 $status="";
-//if (!empty($_GET)) {
-
-// if ($status=="HIT"){}  if ($status=="STAND"){}   if ($status=="SURRENDER"){}
 
 class Blackjack{
 
     // Properties
-     public $score;
-    // Set session variables
-     public $player=0;
+    // set score user
+     public $score=0;
+     // set score house
+     public $houseScore=0;
 
     // Methods
-    // this is the set-functione
-    public function hit() // dit stuk werkt maar nu nog het eruit krijgen in een session, da's wat anders!
-    { // set the score
-        $this->score=mt_rand(1,11);
-        // for two cards instead of one (you have pull two cards at once)
-        $this->player=$this->score+=mt_rand(1,11);
-        return $this->player;
-         //return $this->score;  // this works to get the score out of the class // not yet -> when you call the hit- method of the object player
-    }
-    // this is the get-function // display the scores
-     public function stand($player,$value){ // ik weet nog niet of die parameters ok zijn
-       // $_SESSION["player"] = $this->player;         // put the result of the score into a $_SESSION
-        //return $_SESSION["player"];
-      //  var_dump($_SESSION["player"]);
-       // echo "Session variables are set.";
-        //return $this->score;  // get the score
+    // this is the set-function
+    public function hit()
+    { // set the score for the user // it was first the general set function
+        $this->score+=mt_rand(1,11); // to lay a card and add to the rest
+
+        if($this->score > 21) {  // so is the number is bigger than 21 you lose
+            return "You lose! Your score is: " .$this->score;
+           // allSessionsValueNull();//to put the session to zero, have to put a timer on it
+        }
+        if((isset($this->houseScore))&&($this->houseScore!=0)){
+
+             if(($this->score < 21)&&($this->score > $this->houseScore)){
+                  return "You lose! Your score is: " .$this->score."de huisscore: ".$this->houseScore;
+                 // allSessionsValueNull();//to put the session to zero, have to put a timer on it
+                }
+        // uitzoeken hoe ik die houseScore uit de function stand() krijg
+             elseif(($this->score < 21)&&($this->score > $this->houseScore)){  // so is the number is bigger than 21 you lose
+                   return "You WIN! :) Your score is: ".$this->score."and the score of the house is: ".$this->houseScore;
+                 // allSessionsValueNull();//to put the session to zero, have to put a timer on it
+              }
+             elseif($this->score == $this->houseScore){
+                return "The house WINS! :) Your score is: ".$this->score."and the score of the house is: ".$this->houseScore;
+                 // allSessionsValueNull();//to put the session to zero, have to put a timer on it
+            }else{
+                 return "Your score is : ".$this->score."<br />"; //."de waarde van ".$this->houseScore." is";// of $this->score;
+            }
+          }
+        }
+    // this was the get-function // display the scores
+    // now it displays the house scores
+     public function stand(){ // ik weet nog niet of die parameters ok zijn
+         $this->houseScore=mt_rand(1,11);
+         if($this->houseScore < 15) {
+             $this->houseScore=$this->houseScore+mt_rand(1,11);
+         }
+         if($this->houseScore > 21){
+             return "The stand of the house is: ".$this->houseScore." The house loses!<br/><H1>YOU HAVE WON!</H1>";
+         }
+         else {
+             return "The stand of the house is: ".$this->houseScore;
+         }
       }
-    function surrender(){
-        echo "The house has won!";
-        // show total/score dealer
+      public function surrender(){
+
+          return "The house has won!<br />"."<H1>GAME OVER!</H1>".$this->houseScore;// score dealer // den deze na het eten testen
+          // allSessionsValueNull();//to put the session to zero, have to put a timer on it
     }
 }
-$player=new Blackjack();
-$dealer=new Blackjack();
+if(isset($player)){
+    { echo "";}else{
+    $player=new Blackjack();
+    }
+}
 
-//dit hieronder kan niet echt omdat addSession momenteel geen aparte class is
-//$Se = new addSession();
-//echo $Se->addSession($player,$value);
+//$dealer=new Blackjack();
 
-//Double check here !!
-//echo $_SESSION['player'];
-//$_SESSION[$player]=0;
-//$_SESSION[$house]=0;
-
-// hieronder code voorbeeld
+// hieronder code voorbeeld hoe er normaal gewerkt wordt
 //$apple = new Fruit();
 //$apple->set_name('Apple'); // functie set_name aanroepen met de waarde Apple die geset moet worden
 //echo $apple->get_name(); // functie get_name aanroepen om de gereturnde waarde terug te vragen en te echoöen
 
-//echo $player->hit(); // calls the return value and this works but only on this page, the game-page where I don't want to show this values
 //$_SESSION["player"] = $player->hit(); // this works
 
-//echo $player->stand(); // dit werkt niet, heeft het te maken met public of private? normaal volgens het voorbeeld zonder public of private zou ik dat in hetzelfde object zonder problemen van de ene functie in de andere functie via $this moeten kunnen oproepen
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $status=$_GET['status'];
 
-    if ($status=="HIT"){
-        echo "<H3>Your score is : ".$player->hit()."</H3>";
-  //$_SESSION["player"] = $player->hit(); // dit werkt maar ik zou het toewijzen aan de $_SESSION liever in de set-functie doen de stand() functie vanwaaruit ik ook wil returnen maar dat lukt nu nog niet
-    }elseif($status=="STAND"){
-        echo $status;
-        $player->stand();
-    }elseif($status=="SURRENDER"){
-        echo $status;
-        $player->surrender();
+if($_SERVER["REQUEST_METHOD"] == "POST") {   // if($_POST['submit']) {echo "yeah baby, it's a submit!"; }
+}
+if (!empty($_GET)) {
+    $status = $_GET['status'];
+
+    if ($status == "HIT") {
+        //echo $status;
+        //echo "<H3>Your score is : " . $player->hit() . "</H3>"; // this works! :)
+        $_SESSION["player"] = $player->hit();
+        //print_r($_SESSION["player"]); // to test the code
+
+    } elseif ($status == "STAND") {
+       //echo $status;
+        //echo "stand of the house is: ".$player->stand();
+        $_SESSION["house"]=$player->stand();
+        //print_r($_SESSION["house"]); // to test the code
+
+    } elseif ($status == "SURRENDER") {
+        $_SESSION["playerSurrender"]=$player->surrender();
     }
 }
+// dat op nul zetten moet ik dus ergens anders doen na afloop van het spel een functie aanroepen om alles op nul te zetten
+// kunde vanuit dat object een functie daarbuiten aanroepen om de sessions terug op nul te zetten?
+
+//$setNull=
+function allSessionsValueNull(){ // misschien nog typeren en de functie wanneer nodig aanroepen dus
+    // vanuit de class misschien als parameter bij het nieuw object meegeven zodat ze er aan
+    // kunnen maar dan moet eerst de rest terug werken
+    return $_SESSION["player"] = $_SESSION["house"] =  $_SESSION["playerSurrender"] = 0;
+}
 /*
-<?php
+
     class sessionControle{
         ...
         ...
@@ -88,10 +120,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             return $_SESSION[$index];
         }
     }
-?>
+
 in your main php file you can include the function $_SESSIONS are global Code in your main file:
 
-<?php
+
     session_start();
     include_once("myClass.php");
     $Se = new sessionControle;
@@ -99,7 +131,7 @@ in your main php file you can include the function $_SESSIONS are global Code in
 
     //Double check here !!
     echo $_SESSION['User'];
-?>
+
 */
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /*class SessionManager
@@ -137,6 +169,6 @@ echo $session->getValue('Car'); // This prints the word "Honda" to the screen.
 echo $_SESSION['Car']; //This also prints the word "Honda" to the screen.
 $session->printValue('Car'); //Again, "Honda" is printed to the screen.*/
 
-require 'home.php';  // misschien is het werken met deze ook handig
+require 'home.php';  // met deze werken mag deze keer niet  moet nog een oplossing vinden zonder deze . . . mmm
 ?>
 
