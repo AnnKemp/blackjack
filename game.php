@@ -19,6 +19,7 @@ class Blackjack{
     // this is the set-function
     public function hit()
     { // set the score for the user // it was first the general set function
+        $this->score=mt_rand(1,11);
         $this->score+=mt_rand(1,11); // to lay a card and add to the rest
 
         if($this->score > 21) {  // so is the number is bigger than 21 you lose
@@ -39,10 +40,10 @@ class Blackjack{
              elseif($this->score == $this->houseScore){
                 return "The house WINS! :) Your score is: ".$this->score."and the score of the house is: ".$this->houseScore;
                  // allSessionsValueNull();//to put the session to zero, have to put a timer on it
-            }else{
-                 return "Your score is : ".$this->score."<br />"; //."de waarde van ".$this->houseScore." is";// of $this->score;
             }
-          }
+        }else {
+            return "Your score is : " . $this->score . "<br />"; //."de waarde van ".$this->houseScore." is";// of $this->score;
+             }
         }
     // this was the get-function // display the scores
     // now it displays the house scores
@@ -64,13 +65,14 @@ class Blackjack{
           // allSessionsValueNull();//to put the session to zero, have to put a timer on it
     }
 }
-if(isset($player)){
-    { echo "";}else{
-    $player=new Blackjack();
-    }
+// making the object
+if(!isset($player)){ // omdat het leek bij het tellen alsof het object elke keer opnieuw werd aangemaakt
+
+$player=new Blackjack();
+
 }
 
-//$dealer=new Blackjack();
+//$dealer=new Blackjack(); // I am not using $dealer at the moment
 
 // hieronder code voorbeeld hoe er normaal gewerkt wordt
 //$apple = new Fruit();
@@ -81,7 +83,7 @@ if(isset($player)){
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {   // if($_POST['submit']) {echo "yeah baby, it's a submit!"; }
-}
+} // elke keer als er zo'n GET-Knop geklikt wordt zie je in de url wél die post opnieuw verschijnen
 if (!empty($_GET)) {
     $status = $_GET['status'];
 
@@ -101,13 +103,8 @@ if (!empty($_GET)) {
         $_SESSION["playerSurrender"]=$player->surrender();
     }
 }
-// dat op nul zetten moet ik dus ergens anders doen na afloop van het spel een functie aanroepen om alles op nul te zetten
-// kunde vanuit dat object een functie daarbuiten aanroepen om de sessions terug op nul te zetten?
 
-//$setNull=
 function allSessionsValueNull(){ // misschien nog typeren en de functie wanneer nodig aanroepen dus
-    // vanuit de class misschien als parameter bij het nieuw object meegeven zodat ze er aan
-    // kunnen maar dan moet eerst de rest terug werken
     return $_SESSION["player"] = $_SESSION["house"] =  $_SESSION["playerSurrender"] = 0;
 }
 /*
