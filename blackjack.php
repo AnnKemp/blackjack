@@ -3,14 +3,14 @@ ini_set('display_errors', "1"); // om foutmeldingen te tonen
 session_start();
 $status="";
 
-class Blackjack{
+class Blackjack{ // made the class more oop and now you can easily add extra players
 
     // Properties
     public $score=0;
     public $show="";
 
     // Methods
-    public function hit($player, $waarde, $getal){ // de knop/link functie werkt dus maar een keer! dat moet ik oplossen
+    public function hit($player, $waarde, $getal){ // de knop/link functie werkt dus maar een keer! dat moet ik oplossen daarom telt ie dus nie op en blijft het maar bij ene keer
         $this->score+=$getal; // a test (daarna terug weg doen)
         if($this->score < $waarde) {  // lus van maken met wat in de if is al voorwaarde
             $this->score+=$getal;
@@ -43,23 +43,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST") { // ne get in ne post macheert da?? de
 
         if ($status == "HIT") {
             $player->hit("You", 2, 1);
-            echo $player->stand();
+            echo $player->stand();  // om te testen
             $_SESSION["player"] = $player->stand();
 
         } elseif ($status == "STAND") { // if you click on stand the house plays
             $dealer->stand("The house", 15, 1);
-            echo $dealer->stand();
+            echo $dealer->stand();  // om te testn
             $_SESSION["house"] = $dealer->stand();
 
         } elseif ($status == "SURRENDER") { // if you click on surrender, you,the user, surrender
-            echo $player->surrender();
+            echo $player->surrender();  // alleen den echo is om te testen
             $_SESSION["playerSurrender"] = $player->surrender();
         }
 
         header("Location: http://blackjack.local/form.php"); // maja eerst toch beter de post drukken? het heeft allemaal met die post te doen
     }
 }
-// a function to clear all sessions for later when i use two pages
+// a function to clear all sessions for later when i use two pages gebruik die nu nog nie
 function allSessionsValueNull(){ // misschien nog typeren en de functie wanneer nodig aanroepen dus
     return $_SESSION["player"] = $_SESSION["house"] =  $_SESSION["playerSurrender"] = 0;
 }
