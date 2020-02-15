@@ -19,7 +19,7 @@ session_start();
         <div class="col-md-6">
         </div>
         <div class="form-group col-md-6">
-            <?php echo $_SESSION["player"]; ?>
+            <?php echo $_SESSION["player"]."-".$_SESSION["house"]."-".$_SESSION["playerSurrender"]; ?>
             <form action="blackjack.php/" method="post">
                 <a class="btn btn-danger btn-lg mb-3" href="?status=HIT" role="button">HIT</a><span class="ml-1 align-middle">to lay a card</span><br />
                 <a class="btn btn-warning btn-lg mb-3" href="?status=STAND" role="button">STAND</a><span class="ml-1 align-middle">to end your turn and let the house play</span><br />
